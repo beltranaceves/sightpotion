@@ -12,9 +12,7 @@ use Mix.Config
 config :sightpotion, Sighpotion.Endpoint,
   http: [port: 4000, transport_options: [socket_opts: [:inet6]]],
   https: [
-    port: 4040,
-    cipher_suite: :strong,
-    transport_options: [socket_opts: [:inet6]]
+    port: 4040
   ],
   url: [host: "beltran.tk", port: 443],
   cache_static_manifest: "priv/static/cache_manifest.json",
