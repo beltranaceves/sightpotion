@@ -34,3 +34,8 @@ npm-debug.log
 /priv/static/
 
 .env
+
+# Ignore secrets files
+/config/*.secret.exs
+# Ignore local cert files
+/tmp/
