@@ -4,7 +4,7 @@ use Mix.Config
 config :sightpotion, Sightpotion.Repo,
   username: "postgres",
   password: "CQJg(.K)6--)M:n3",
-  database: "sightpotion_dev",
+  database: "sightpotion",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10

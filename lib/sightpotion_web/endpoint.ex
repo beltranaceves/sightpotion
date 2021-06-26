@@ -11,7 +11,7 @@ defmodule SightpotionWeb.Endpoint do
   def certification do
    SiteEncrypt.configure(
      client: :native,
-     domains: ["beltran.com", "www.beltran.com"],
+     domains: ["beltran.tk", "www.beltran.tk"],
      emails: ["beltranaceves@gmail.com"],
      db_folder: Application.get_env(:my_app, :cert_path, "tmp/site_encrypt_db"),
      directory_url:

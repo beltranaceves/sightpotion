@@ -10,7 +10,7 @@ use Mix.Config
 # which you should run after static files are built and
 # before starting your production server.
 config :sightpotion, MyAppWeb.Endpoint,
-  url: [host: "beltran.com", port: 443],
+  url: [host: "beltran.tk", port: 443],
   cache_static_manifest: "priv/static/cache_manifest.json",
   server: true,
   force_ssl: [hsts: true],
