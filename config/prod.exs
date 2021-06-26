@@ -10,16 +10,16 @@ use Mix.Config
 # which you should run after static files are built and
 # before starting your production server.
 config :sightpotion, Sighpotion.Endpoint,
+  http: [port: 4000, transport_options: [socket_opts: [:inet6]]],
+  https: [
+    port: 4040,
+    cipher_suite: :strong,
+    transport_options: [socket_opts: [:inet6]]
+  ],
   url: [host: "beltran.tk", port: 443],
   cache_static_manifest: "priv/static/cache_manifest.json",
   server: true,
-  force_ssl: [hsts: true],
-  http: [port: 4000, transport_options: [socket_opts: [:inet6]]],
-  https: [
-    port: 4001,
-    cipher_suite: :strong,
-    transport_options: [socket_opts: [:inet6]]
-  ]
+  force_ssl: [hsts: true]
 
 # Set path to cert folder
 config :sightpotion, :cert_path, "/home/beltranaceves/site_encrypt_db"
