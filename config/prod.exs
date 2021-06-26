@@ -16,7 +16,7 @@ config :sightpotion, Sighpotion.Endpoint,
   force_ssl: [hsts: true],
   http: [port: 4000, transport_options: [socket_opts: [:inet6]]],
   https: [
-    port: 4040,
+    port: 4001,
     cipher_suite: :strong,
     transport_options: [socket_opts: [:inet6]]
   ]
