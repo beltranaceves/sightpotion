@@ -14,7 +14,7 @@ defmodule Sightpotion.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: Sightpotion.PubSub},
       # Start the Endpoint (http/https)
-      SightpotionWeb.Endpoint,
+      {SiteEncrypt.Phoenix, SightpotionWeb.Endpoint},
       # Start a worker by calling: Sightpotion.Worker.start_link(arg)
       # {Sightpotion.Worker, arg}
       {Oban, oban_config()},

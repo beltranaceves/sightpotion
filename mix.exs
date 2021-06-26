@@ -45,6 +45,7 @@ defmodule Sightpotion.MixProject do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
+      {:site_encrypt, "~> 0.4.2"}
       # Additional packages
 
       # Wallaby for fetaure tests. NOTE! Requires chromedriver
