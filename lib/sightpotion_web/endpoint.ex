@@ -20,7 +20,7 @@ defmodule SightpotionWeb.Endpoint do
       # outside of the deployment folder. Otherwise, the deploy may delete the db_folder,
       # which will effectively remove the generated key and certificate files.
       db_folder:
-        Application.get_env(:sightpotion, :cert_path, "tmp/site_encrypt_db",
+        Application.get_env(:sightpotion, :cert_path, "tmp/site_encrypt_db"),
 
       # set OS env var CERT_MODE to "staging" or "production" on staging/production hosts
       directory_url:
@@ -29,6 +29,7 @@ defmodule SightpotionWeb.Endpoint do
           "staging" -> "https://acme-staging-v02.api.letsencrypt.org/directory"
           "production" -> "https://acme-v02.api.letsencrypt.org/directory"
         end
+      
     )
   end
 
