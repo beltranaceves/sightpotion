@@ -28,7 +28,7 @@ config :sightpotion, :cert_path, "/home/beltranaceves/site_encrypt_db"
 config :sightpotion, :cert_mode, "production"
 
 # Do not print debug messages in production
-config :logger, level: :info
+config :logger, level: :debug
 
 # ## SSL Support
 #
