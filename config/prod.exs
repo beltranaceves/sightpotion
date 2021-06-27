@@ -20,12 +20,8 @@ config :sightpotion, Sighpotion.Endpoint,
   cache_static_manifest: "priv/static/cache_manifest.json",
   server: true,
   force_ssl: [hsts: true],
-  http: [port: 4000, transport_options: [socket_opts: [:inet6]]],
-  https: [
-    port: 4040,
-    cipher_suite: :strong,
-    transport_options: [socket_opts: [:inet6]]
-  ]
+  http: [port: 4000],
+  https: [port: 4040]
 
 # Set path to cert folder
 config :sightpotion, :cert_path, "/home/beltranaceves/site_encrypt_db"
