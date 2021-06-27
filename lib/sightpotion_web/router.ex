@@ -58,7 +58,7 @@ defmodule SightpotionWeb.Router do
 
     scope "/" do
       pipe_through :browser
-      kaffy_dashboard "/dashboard", metrics: SightpotionWeb.Telemetry, ecto_repos: [Sightpotion.Repo]
+      live_dashboard "/dashboard", metrics: SightpotionWeb.Telemetry, ecto_repos: [Sightpotion.Repo]
     end
   end
 
