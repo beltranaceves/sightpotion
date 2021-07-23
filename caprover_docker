@@ -1,7 +1,8 @@
 FROM elixir:1.12.2-alpine AS build
 
 # install build dependencies
-RUN apk add --no-cache build-base npm git autoconf automake g++ --virtual build-dependencies make gcc libgcc libstdc++ ncurses-libs
+#RUN apk add --no-cache build-base npm git autoconf automake g++ --virtual build-dependencies make gcc libgcc libstdc++ ncurses-libs
+RUN apk add --no-cache build-base npm git make gcc libc-dev
 
 # prepare build dir
 WORKDIR /app
@@ -17,6 +18,7 @@ ENV SECRET_KEY_BASE=gezCztOVJKD3K7/pRxOCsVz2/26KpvIXP6iwcLAtR6kikK55jKMTPDbjxLrh
 
 # install mix dependencies
 COPY . ./
+RUN cd deps/bcrypt_elixir && make clean && make
 RUN mix do deps.get, deps.compile
 
 # build assets
