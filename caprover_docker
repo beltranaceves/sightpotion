@@ -1,7 +1,7 @@
 FROM hexpm/elixir:1.12.2-erlang-24.0.3-alpine-3.13.3 AS build
 
 # install build dependencies
-RUN apk add --no-cache build-base npm git autoconf automake g++ --virtual build-dependencies make gcc libgcc libstdc++ ncurses-libs libc-dev
+RUN apk add --no-cache build-base npm git autoconf automake g++ --virtual build-dependencies make gcc libgcc libstdc++ ncurses-libs libc-dev yarn
 
 # prepare build dir
 WORKDIR /app
@@ -21,7 +21,8 @@ RUN mix do deps.get
 RUN mix do deps.compile
 
 # build assets
-RUN npm --prefix ./assets ci --progress=false --no-audit
+#RUN npm --prefix ./assets ci --progress=false --no-audit
+RUN yarn
 RUN npm run --prefix ./assets/ deploy
 RUN mix phx.digest
 RUN mix do compile, release
