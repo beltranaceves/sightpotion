@@ -21,8 +21,8 @@ RUN mix do deps.get
 RUN mix do deps.compile
 
 # build assets
-#RUN npm --prefix ./assets ci --progress=false --no-audit
-RUN yarn
+RUN npm install -g npm
+RUN npm --prefix ./assets ci --progress=false --no-audit
 RUN npm run --prefix ./assets/ deploy
 RUN mix phx.digest
 RUN mix do compile, release
