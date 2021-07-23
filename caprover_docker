@@ -1,8 +1,7 @@
 FROM elixir:1.12.2-alpine AS build
 
 # install build dependencies
-#RUN apk add --no-cache build-base npm git autoconf automake g++ --virtual build-dependencies make gcc libgcc libstdc++ ncurses-libs
-RUN apk add --no-cache build-base npm git make gcc libc-dev
+RUN apk add --no-cache build-base npm git autoconf automake g++ --virtual build-dependencies make gcc libgcc libstdc++ ncurses-libs libc-dev
 
 # prepare build dir
 WORKDIR /app
