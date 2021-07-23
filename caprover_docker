@@ -17,7 +17,7 @@ ENV SECRET_KEY_BASE=gezCztOVJKD3K7/pRxOCsVz2/26KpvIXP6iwcLAtR6kikK55jKMTPDbjxLrh
 
 # install mix dependencies
 COPY . ./
-COPY deps/bcrypt_elixir/ ./deps/bcrypt_elixir/
+COPY ./deps/bcrypt_elixir/ ./deps/bcrypt_elixir/
 RUN mix deps.compile --force bcrypt_elixir
 RUN mix do deps.get
 RUN mix do deps.compile
