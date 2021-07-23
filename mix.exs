@@ -18,7 +18,7 @@ defmodule Sightpotion.MixProject do
   def application do
     [
       mod: {Sightpotion.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :os_mon]
     ]
   end
   # Specifies which paths to compile per environment.
