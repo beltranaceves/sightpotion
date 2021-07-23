@@ -1,8 +1,8 @@
 FROM elixir:1.12.2-alpine AS build
 
 # install build dependencies
-RUN apk add --no-cache build-base npm git python
 RUN apt-get update && apt-get install build-essential -y
+RUN apk add --no-cache build-base npm git python
 
 # prepare build dir
 WORKDIR /app
