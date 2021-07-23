@@ -1,4 +1,4 @@
-FROM elixir:1.12.2-alpine AS build
+FROM bitwalker/alpine-elixir:latest AS build
 
 # install build dependencies
 RUN apk add --no-cache build-base npm git autoconf automake g++ --virtual build-dependencies make gcc libgcc libstdc++ ncurses-libs libc-dev
