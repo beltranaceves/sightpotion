@@ -25,7 +25,7 @@ RUN npm install -g npm
 RUN npm --prefix ./assets ci --progress=false --no-audit
 RUN npm run --prefix ./assets/ deploy
 RUN mix phx.digest
-RUN mix do compile, ecto.setup, release
+RUN mix do compile, release
 
 # prepare release image
 FROM alpine:3.13 AS app
@@ -43,4 +43,5 @@ ENV HOME=/app
 
 EXPOSE 80
 
+CMD ["eval", "sightpotion.Release.migrate"]
 CMD ["bin/sightpotion", "start"]
