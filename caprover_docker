@@ -12,7 +12,7 @@ RUN mix local.hex --force && \
 
 # set build ENV
 ENV MIX_ENV=prod
-ENV DATABASE_URL=ecto://postgres:postgres@srv-captain--postgres-db/postgre
+ENV DATABASE_URL=ecto://postgres:postgres@srv-captain--postgres-db:5432/postgre
 ENV SECRET_KEY_BASE=gezCztOVJKD3K7/pRxOCsVz2/26KpvIXP6iwcLAtR6kikK55jKMTPDbjxLrheGDc
 
 # install mix dependencies
