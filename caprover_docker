@@ -43,5 +43,4 @@ ENV HOME=/app
 
 EXPOSE 80
 
-CMD ["eval", "sightpotion.Release.migrate"]
 CMD ["bin/sightpotion", "start"]
