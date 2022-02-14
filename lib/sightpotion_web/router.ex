@@ -1,8 +1,5 @@
 defmodule SightpotionWeb.Router do
   use SightpotionWeb, :router
-  use Kaffy.Routes #, scope: "/admin", pipe_through: [:some_plug, :authenticate]
-
-  import SightpotionWeb.UserAuth
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -11,7 +8,6 @@ defmodule SightpotionWeb.Router do
     plug :put_root_layout, {SightpotionWeb.LayoutView, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
-    plug :fetch_current_user
   end
 
   pipeline :api do
@@ -21,7 +17,7 @@ defmodule SightpotionWeb.Router do
   scope "/", SightpotionWeb do
     pipe_through :browser
 
-    live "/", PageLive, :index
+    get "/", PageController, :index
   end
 
   # Other scopes may use custom stacks.
@@ -41,43 +37,20 @@ defmodule SightpotionWeb.Router do
 
     scope "/" do
       pipe_through :browser
-      live_dashboard "/dashboard", metrics: SightpotionWeb.Telemetry, ecto_repos: [Sightpotion.Repo]
+
+      live_dashboard "/dashboard", metrics: SightpotionWeb.Telemetry
     end
   end
 
-  ## Authentication routes
+  # Enables the Swoosh mailbox preview in development.
+  #
+  # Note that preview only shows emails that were sent by the same
+  # node running the Phoenix server.
+  if Mix.env() == :dev do
+    scope "/dev" do
+      pipe_through :browser
 
-  scope "/", SightpotionWeb do
-    pipe_through [:browser, :redirect_if_user_is_authenticated, :put_session_layout]
-
-    get "/users/register", UserRegistrationController, :new
-    post "/users/register", UserRegistrationController, :create
-    get "/users/log_in", UserSessionController, :new
-    post "/users/log_in", UserSessionController, :create
-    get "/users/reset_password", UserResetPasswordController, :new
-    post "/users/reset_password", UserResetPasswordController, :create
-    get "/users/reset_password/:token", UserResetPasswordController, :edit
-    put "/users/reset_password/:token", UserResetPasswordController, :update
-  end
-
-  scope "/", SightpotionWeb do
-    pipe_through [:browser, :require_authenticated_user]
-
-    get "/users/settings", UserSettingsController, :edit
-    put "/users/settings", UserSettingsController, :update
-    get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
-  end
-
-  scope "/", SightpotionWeb do
-    pipe_through [:browser]
-
-    delete "/users/log_out", UserSessionController, :delete
-    get "/users/confirm", UserConfirmationController, :new
-    post "/users/confirm", UserConfirmationController, :create
-    get "/users/confirm/:token", UserConfirmationController, :confirm
-  end
-
-  if Mix.env == :dev do
-    forward "/sent_emails", Bamboo.SentEmailViewerPlug
+      forward "/mailbox", Plug.Swoosh.MailboxPreview
+    end
   end
 end

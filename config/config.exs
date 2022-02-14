@@ -1,21 +1,43 @@
 # This file is responsible for configuring your application
-# and its dependencies with the aid of the Mix.Config module.
+# and its dependencies with the aid of the Config module.
 #
 # This configuration file is loaded before any dependency and
 # is restricted to this project.
 
 # General application configuration
-use Mix.Config
+import Config
 
-config :sightpotion, ecto_repos: [Sightpotion.Repo], generators: [binary_id: true]
+config :sightpotion,
+  ecto_repos: [Sightpotion.Repo]
 
 # Configures the endpoint
 config :sightpotion, SightpotionWeb.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "gezCztOVJKD3K7/pRxOCsVz2/26KpvIXP6iwcLAtR6kikK55jKMTPDbjxLrheGDc",
   render_errors: [view: SightpotionWeb.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: Sightpotion.PubSub,
-  live_view: [signing_salt: "ywIHqVZp"]
+  live_view: [signing_salt: "U0KHdODv"]
+
+# Configures the mailer
+#
+# By default it uses the "Local" adapter which stores the emails
+# locally. You can see the emails in your browser, at "/dev/mailbox".
+#
+# For production it's recommended to configure a different adapter
+# at the `config/runtime.exs`.
+config :sightpotion, Sightpotion.Mailer, adapter: Swoosh.Adapters.Local
+
+# Swoosh API client is needed for adapters other than SMTP.
+config :swoosh, :api_client, false
+
+# Configure esbuild (the version is required)
+config :esbuild,
+  version: "0.14.0",
+  default: [
+    args:
+      ~w(js/app.js --bundle --target=es2017 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
+    cd: Path.expand("../assets", __DIR__),
+    env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
+  ]
 
 # Configures Elixir's Logger
 config :logger, :console,
@@ -25,25 +47,6 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
-config :sightpotion, Sightpotion.Mailer,
-  adapter: Bamboo.MandrillAdapter,
-  api_key: "my_api_key"
-
-config :kaffy,
-   otp_app: :sightpotion,
-   ecto_repo: Sightpotion.Repo,
-   router: SightpotionWeb.Router
-
-config :sightpotion, Oban,
-  repo: Sightpotion.Repo,
-  queues: [default: 10, mailers: 20, events: 50, low: 5],
-  plugins: [
-    Oban.Plugins.Pruner,
-    {Oban.Plugins.Cron,
-     crontab: [
-     ]}
-  ]
-
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
-import_config "#{Mix.env()}.exs"
+import_config "#{config_env()}.exs"

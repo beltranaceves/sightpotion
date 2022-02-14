@@ -7,20 +7,10 @@ defmodule SightpotionWeb.Endpoint do
   @session_options [
     store: :cookie,
     key: "_sightpotion_key",
-    signing_salt: "PQiFey9T"
+    signing_salt: "0EOLW+f6"
   ]
 
-  socket "/socket", SightpotionWeb.UserSocket,
-    websocket: true,
-    longpoll: false
-
   socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
-
-  plug Plug.Static,
-    at: "/kaffy",
-    from: :kaffy,
-    gzip: false,
-    only: ~w(assets)
 
   # Serve at "/" the static files from "priv/static" directory.
   #
@@ -30,7 +20,7 @@ defmodule SightpotionWeb.Endpoint do
     at: "/",
     from: :sightpotion,
     gzip: false,
-    only: ~w(css fonts images js favicon.ico robots.txt)
+    only: ~w(assets fonts images favicon.ico robots.txt)
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
@@ -57,9 +47,4 @@ defmodule SightpotionWeb.Endpoint do
   plug Plug.Head
   plug Plug.Session, @session_options
   plug SightpotionWeb.Router
-
-  # For Wallaby feature tests
-  if sandbox = Application.get_env(:sightpotion, :sandbox) do
-    plug Phoenix.Ecto.SQL.Sandbox, sandbox: sandbox
-  end
 end

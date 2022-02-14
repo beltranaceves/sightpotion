@@ -1,7 +1,4 @@
-use Mix.Config
-
-# Only in tests, remove the complexity from the password hashing algorithm
-config :bcrypt_elixir, :log_rounds, 1
+import Config
 
 # Configure your database
 #
@@ -11,23 +8,23 @@ config :bcrypt_elixir, :log_rounds, 1
 config :sightpotion, Sightpotion.Repo,
   username: "postgres",
   password: "postgres",
-  database: "sightpotion_test#{System.get_env("MIX_TEST_PARTITION")}",
   hostname: "localhost",
-  pool: Ecto.Adapters.SQL.Sandbox
+  database: "sightpotion_test#{System.get_env("MIX_TEST_PARTITION")}",
+  pool: Ecto.Adapters.SQL.Sandbox,
+  pool_size: 10
 
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
 config :sightpotion, SightpotionWeb.Endpoint,
-  http: [port: 4002],
-  server: true
+  http: [ip: {127, 0, 0, 1}, port: 4002],
+  secret_key_base: "Y609tN5XsKU2RTBFxfwUonxy+tp3FVo/rUKVQihDzASMfR9iVBdiQ/2eqycfvEI4",
+  server: false
+
+# In test we don't send emails.
+config :sightpotion, Sightpotion.Mailer, adapter: Swoosh.Adapters.Test
 
 # Print only warnings and errors during test
 config :logger, level: :warn
 
-config :sightpotion, Sightpotion.Mailer,
-  adapter: Bamboo.TestAdapter
-
-# Dont run oban in tests
-config :sightpotion, Oban, queues: false, plugins: false
-config :wallaby, otp_app: :sightpotion
-config :sightpotion, :sandbox, Ecto.Adapters.SQL.Sandbox
+# Initialize plugs at runtime for faster test compilation
+config :phoenix, :plug_init_mode, :runtime
